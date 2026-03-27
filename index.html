@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>i9.MKT Performance — Resultados Reais. Sem Filtro.</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0d0d0d;
+  --white: #f5f2ed;
+  --orange: #ff4d00;
+  --orange-dim: #cc3d00;
+  --gray: #1a1a1a;
+  --gray2: #2a2a2a;
+  --muted: #888;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: var(--black);
+  border-bottom: 2px solid var(--white);
+  mix-blend-mode: normal;
+}
+
+.logo-nav {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.logo-nav span { color: var(--orange); }
+
+nav ul { display: flex; gap: 32px; list-style: none; align-items: center; }
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+nav a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--orange) !important;
+  color: var(--white) !important;
+  padding: 10px 20px;
+  border: 2px solid var(--orange);
+  font-weight: 700 !important;
+  letter-spacing: 0.1em;
+  transition: background 0.15s, color 0.15s !important;
+}
+.nav-cta:hover {
+  background: transparent !important;
+  color: var(--orange) !important;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  border-bottom: 2px solid var(--white);
+  overflow: hidden;
+}
+
+/* Halftone bg */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(245,242,237,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.hero-est {
+  position: absolute;
+  top: 100px; right: 40px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.hero-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 40px; height: 2px;
+  background: var(--orange);
+}
+
+h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(4rem, 14vw, 11rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+h1 .outline {
+  -webkit-text-stroke: 2px var(--white);
+  color: transparent;
+}
+
+h1 .orange { color: var(--orange); }
+
+.hero-sub-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 380px;
+  line-height: 1.7;
+  font-weight: 300;
+  border-left: 3px solid var(--orange);
+  padding-left: 16px;
+}
+
+.hero-cta {
+  display: inline-block;
+  background: var(--orange);
+  color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  text-decoration: none;
+  border: 3px solid var(--orange);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.hero-cta:hover {
+  background: transparent;
+  color: var(--orange);
+}
+
+/* ── MARQUEE ── */
+.marquee-wrap {
+  overflow: hidden;
+  background: var(--orange);
+  border-bottom: 2px solid var(--white);
+  padding: 14px 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 0 40px;
+  flex-shrink: 0;
+}
+
+.marquee-sep { color: var(--black); opacity: 0.4; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── MANIFESTO ── */
+.manifesto {
+  padding: 100px 40px;
+  border-bottom: 2px solid var(--gray2);
+  position: relative;
+}
+
+.manifesto-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(8rem, 20vw, 16rem);
+  color: var(--gray);
+  position: absolute;
+  top: 40px; right: 40px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.sec-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sec-label::before { content: '//'; color: var(--gray2); }
+
+.manifesto-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  max-width: 700px;
+  margin-bottom: 32px;
+}
+
+.manifesto-title .strike {
+  position: relative;
+  color: var(--muted);
+}
+
+.manifesto-title .strike::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 4px;
+  background: var(--orange);
+  transform: rotate(-2deg);
+}
+
+.manifesto-body {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.manifesto-body strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ── SOBRE ── */
+.sobre {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 2px solid var(--gray2);
+}
+
+.sobre-left {
+  padding: 80px 40px;
+  border-right: 2px solid var(--gray2);
+}
+
+.sobre-right {
+  padding: 80px 40px;
+  background: var(--gray);
+}
+
+.sobre-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 24px 0 8px;
+}
+
+.sobre-role {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.sobre-text {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.sobre-text strong { color: var(--white); font-weight: 500; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.skill-item {
+  background: var(--black);
+  padding: 14px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.skill-item:hover { background: var(--orange); color: var(--white); }
+
+.pilares { display: flex; flex-direction: column; gap: 0; }
+
+.pilar {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--gray2);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.pilar:last-child { border-bottom: none; }
+
+.pilar-n {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  color: var(--orange);
+  line-height: 1;
+  min-width: 40px;
+}
+
+.pilar-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.pilar-desc {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ── SERVIÇOS ── */
+.servicos {
+  padding: 0;
+  border-bottom: 2px solid var(--gray2);
+}
+
+.servicos-header {
+  padding: 80px 40px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid var(--gray2);
+}
+
+.servicos-header h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.servicos-header p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 300px;
+  font-weight: 300;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.servicos-list { display: flex; flex-direction: column; }
+
+.servico-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  padding: 32px 40px;
+  border-bottom: 1px solid var(--gray2);
+  gap: 32px;
+  transition: background 0.15s;
+  cursor: default;
+}
+
+.servico-item:hover { background: var(--gray); }
+.servico-item:hover .servico-arrow { color: var(--orange); transform: translateX(6px); }
+.servico-item:hover .servico-n { color: var(--orange); }
+
+.servico-n {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  color: var(--gray2);
+  transition: color 0.15s;
+}
+
+.servico-content {}
+
+.servico-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.servico-desc {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.servico-tags-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.stag {
+  border: 1px solid var(--gray2);
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.servico-arrow {
+  font-size: 1.5rem;
+  color: var(--gray2);
+  transition: color 0.15s, transform 0.2s;
+}
+
+/* ── CONTATO ── */
+.contato {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.contato-left {
+  padding: 80px 40px;
+  border-right: 2px solid var(--gray2);
+  background: var(--orange);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 600px;
+}
+
+.contato-left h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: var(--black);
+}
+
+.contato-left p {
+  font-size: 1rem;
+  color: rgba(13,13,13,0.7);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 380px;
+  margin-top: 24px;
+}
+
+.contato-links { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+
+.clink {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 2px solid rgba(13,13,13,0.2);
+  text-decoration: none;
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: gap 0.2s;
+}
+
+.clink:hover { gap: 24px; }
+.clink:last-child { border-bottom: 2px solid rgba(13,13,13,0.2); }
+
+.clink-icon { font-size: 1.2rem; }
+
+.contato-right { padding: 80px 40px; background: var(--black); }
+
+.form-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 40px;
+}
+
+.form-title span { color: var(--orange); }
+
+.form-group { margin-bottom: 20px; }
+
+label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+input, textarea, select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--gray2);
+  padding: 12px 0;
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  border-radius: 0;
+}
+
+input:focus, textarea:focus, select:focus { border-color: var(--orange); }
+input::placeholder, textarea::placeholder { color: var(--gray2); }
+textarea { resize: none; min-height: 100px; }
+
+select option { background: var(--black); color: var(--white); }
+
+.btn-form {
+  width: 100%;
+  background: var(--white);
+  color: var(--black);
+  border: 3px solid var(--white);
+  padding: 18px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: crosshair;
+  transition: background 0.15s, color 0.15s;
+  margin-top: 12px;
+}
+
+.btn-form:hover { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  border-top: 2px solid var(--white);
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.footer-logo span { color: var(--orange); }
+
+footer p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content { animation: fadeIn 0.6s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  nav ul { display: none; }
+  .hero { padding: 90px 20px 60px; }
+  .hero-est { display: none; }
+  .manifesto { padding: 60px 20px; }
+  .manifesto-num { font-size: 8rem; top: 20px; right: 20px; }
+  .sobre { grid-template-columns: 1fr; }
+  .sobre-left { border-right: none; border-bottom: 2px solid var(--gray2); }
+  .servicos-header { flex-direction: column; align-items: flex-start; }
+  .servicos-header p { text-align: left; }
+  .servico-item { grid-template-columns: 50px 1fr 30px; padding: 24px 20px; gap: 16px; }
+  .contato { grid-template-columns: 1fr; }
+  .contato-left { min-height: auto; }
+  .contato-left, .contato-right { padding: 60px 20px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-nav">i9<span>.</span>MKT <span style="font-size:0.7em;color:var(--muted);font-weight:400;">PERFORMANCE</span></a>
+  <ul>
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#contato" class="nav-cta">Inove Agora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-est">Est. Guarapari — ES · Marketing de Performance</div>
+  <div class="hero-content">
+    <div class="hero-tag">Marketing de Alta Conversão</div>
+    <h1>
+      INOVE<br>
+      <span class="outline">OU</span><br>
+      <span class="orange">MORRA.</span>
+    </h1>
+    <div class="hero-sub-row">
+      <p class="hero-sub">O "bonitinho" é invisível. O "comum" é esquecimento. Viemos para quebrar o vidro — não decorar o feed.</p>
+      <a href="#contato" class="hero-cta">Consultoria gratuita →</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Resultados Reais</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Sem Filtro</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Alta Conversão</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Guarapari · ES</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Inove Agora</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Performance de Elite</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Resultados Reais</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Sem Filtro</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Alta Conversão</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Guarapari · ES</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Inove Agora</span>
+    <span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">Performance de Elite</span>
+    <span class="marquee-item marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-num">01</div>
+  <div class="sec-label">O Manifesto</div>
+  <div class="manifesto-title">
+    A REGRA<br>
+    É CLARA.
+  </div>
+  <p class="manifesto-body">
+    Se a sua marca não está <strong>incomodando o status quo</strong>, ela está apenas ocupando espaço.<br><br>
+    A visibilidade sem conversão é vaidade. E vaidade não paga as contas.<br><br>
+    O círculo ao redor do nosso símbolo representa a zona de conforto — o mercado saturado, as estratégias de ontem. A seta é a performance. <strong>Ela não pede licença. Ela rompe.</strong>
+  </p>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="sobre-left">
+    <div class="sec-label">Quem opera</div>
+    <div class="sobre-name">Igor<br>Ferreira</div>
+    <div class="sobre-role">Consultor · i9.MKT Performance</div>
+    <p class="sobre-text">
+      Analista de Mídia Performance com atuação em <strong>tráfego pago, CRM e growth</strong>. Mais de 10 anos entregando resultado real para negócios que não aceitam mediocridade.<br><br>
+      Não espere respostas gentis. Espere <strong>verdades cruas e impacto mensurável</strong>.
+    </p>
+    <div class="skills-grid">
+      <div class="skill-item">Meta Ads</div>
+      <div class="skill-item">Google Ads</div>
+      <div class="skill-item">CRM / RD Station</div>
+      <div class="skill-item">Growth</div>
+      <div class="skill-item">Funil B2B</div>
+      <div class="skill-item">Copywriting</div>
+    </div>
+  </div>
+  <div class="sobre-right">
+    <div class="sec-label">Os pilares</div>
+    <div class="pilares">
+      <div class="pilar">
+        <div class="pilar-n">01</div>
+        <div>
+          <div class="pilar-title">Estratégia com dados</div>
+          <p class="pilar-desc">Cada ação construída sobre números reais. Sem achismo, sem genérico, sem promessa vazia.</p>
+        </div>
+      </div>
+      <div class="pilar">
+        <div class="pilar-n">02</div>
+        <div>
+          <div class="pilar-title">Estética de rua, performance de elite</div>
+          <p class="pilar-desc">Nascemos no concreto de Guarapari. O que é real tem ranhuras. O que é real converte.</p>
+        </div>
+      </div>
+      <div class="pilar">
+        <div class="pilar-n">03</div>
+        <div>
+          <div class="pilar-title">Execução, não só plano</div>
+          <p class="pilar-desc">Do diagnóstico ao resultado. Você fala direto comigo — sem intermediário, sem júnior.</p>
+        </div>
+      </div>
+      <div class="pilar">
+        <div class="pilar-n">04</div>
+        <div>
+          <div class="pilar-title">Alta conversão é o nosso sangue</div>
+          <p class="pilar-desc">Transformar "vi seu post" em "fechei negócio". Se não gera resultado real, é ruído.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-header">
+    <div>
+      <div class="sec-label">O que entregamos</div>
+      <h2>Serviços</h2>
+    </div>
+    <p>Consultoria focada em conversão. Sem pacote engessado, sem contrato de 12 meses pelo cheiro.</p>
+  </div>
+  <div class="servicos-list">
+    <div class="servico-item">
+      <div class="servico-n">01</div>
+      <div class="servico-content">
+        <div class="servico-title">Diagnóstico de Presença Digital</div>
+        <p class="servico-desc">Raio-X completo: Google, redes, site, anúncios e concorrência. Entrega com prioridades e plano de ataque.</p>
+        <div class="servico-tags-row">
+          <span class="stag">Auditoria</span>
+          <span class="stag">SEO Local</span>
+          <span class="stag">Concorrência</span>
+        </div>
+      </div>
+      <div class="servico-arrow">→</div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-n">02</div>
+      <div class="servico-content">
+        <div class="servico-title">Gestão de Tráfego Pago</div>
+        <p class="servico-desc">Meta Ads e Google Ads com foco em CPL eficiente e conversão real. Não clique — venda.</p>
+        <div class="servico-tags-row">
+          <span class="stag">Meta Ads</span>
+          <span class="stag">Google Ads</span>
+          <span class="stag">CPL / ROAS</span>
+        </div>
+      </div>
+      <div class="servico-arrow">→</div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-n">03</div>
+      <div class="servico-content">
+        <div class="servico-title">Consultoria Estratégica de Marketing</div>
+        <p class="servico-desc">Posicionamento, funil, canais, mensagem e métricas. Para quem quer crescer com consistência, não por acidente.</p>
+        <div class="servico-tags-row">
+          <span class="stag">Estratégia</span>
+          <span class="stag">Funil</span>
+          <span class="stag">Posicionamento</span>
+        </div>
+      </div>
+      <div class="servico-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="contato-left">
+    <div>
+      <div class="sec-label" style="color:rgba(13,13,13,0.5);">// Vamos conversar</div>
+      <h2>A SUA<br>VISIBILIDADE<br>ESTÁ AQUÉM<br>DO QUE PODE.</h2>
+      <p>A gente corrige isso. A primeira conversa é gratuita — sem enrolação, sem compromisso forçado.</p>
+    </div>
+    <div class="contato-links">
+      <a href="https://wa.me/5527992751836" class="clink" target="_blank">
+        <span class="clink-icon">📱</span>
+        <span>(27) 99275-1836</span>
+      </a>
+      <a href="mailto:contato@i9mkt.com.br" class="clink">
+        <span class="clink-icon">✉</span>
+        <span>contato@i9mkt.com.br</span>
+      </a>
+      <a href="#" class="clink">
+        <span class="clink-icon">📍</span>
+        <span>Guarapari — ES</span>
+      </a>
+    </div>
+  </div>
+  <div class="contato-right">
+    <div class="form-title">Inove <span>agora</span> →</div>
+    <div class="form-group">
+      <label>Seu nome</label>
+      <input type="text" id="f-nome" placeholder="Como te chamam?">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp</label>
+      <input type="tel" id="f-tel" placeholder="(27) 99999-9999">
+    </div>
+    <div class="form-group">
+      <label>Seu negócio</label>
+      <input type="text" id="f-neg" placeholder="Nome ou segmento">
+    </div>
+    <div class="form-group">
+      <label>O que está travando?</label>
+      <textarea id="f-msg" placeholder="Qual é o seu maior problema de marketing hoje?"></textarea>
+    </div>
+    <button class="btn-form" onclick="enviar()">Quero resultado real →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">i9<span>.</span>MKT <span style="font-size:0.7em;color:var(--muted);font-weight:400;">PERFORMANCE</span></div>
+  <p>© 2025 · Guarapari, ES · Resultados Reais. Sem Filtro.</p>
+</footer>
+
+<script>
+function enviar() {
+  const nome = document.getElementById('f-nome').value;
+  const tel  = document.getElementById('f-tel').value;
+  const neg  = document.getElementById('f-neg').value;
+  const msg  = document.getElementById('f-msg').value;
+
+  if (!nome || !tel) { alert('Preencha nome e WhatsApp.'); return; }
+
+  const texto = `*i9.MKT Performance*\n\nOlá! Vim pelo site e quero uma consultoria gratuita.\n\n*Nome:* ${nome}\n*Negócio:* ${neg || '—'}\n*O que está travando:* ${msg || '—'}`;
+  window.open(`https://wa.me/5527992751836?text=${encodeURIComponent(texto)}`, '_blank');
+}
+
+// Scroll reveal brutal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.servico-item, .pilar, .manifesto-body').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
